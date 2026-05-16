@@ -45,3 +45,5 @@ Thumbs.db
 # Virtual Machine
 hs_err_pid*
 replay_pid*
+
+.claude
