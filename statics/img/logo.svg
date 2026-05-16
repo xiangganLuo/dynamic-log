@@ -1,0 +1,24 @@
+<svg width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- 背景：圆角矩形蓝色底 -->
+  <rect width="120" height="120" rx="28" fill="#2563eb"/>
+  
+  <!-- 循环刷新箭头 (逆时针) -->
+  <!-- 顶部弧线 -->
+  <path d="M60 25 A35 35 0 0 0 25 60" stroke="white" stroke-width="6" stroke-linecap="round" fill="none"/>
+  <!-- 左侧弧线 -->
+  <path d="M25 60 A35 35 0 0 0 60 95" stroke="white" stroke-width="6" stroke-linecap="round" fill="none"/>
+  <!-- 底部弧线带箭头 -->
+  <path d="M60 95 A35 35 0 0 0 95 60" stroke="white" stroke-width="6" stroke-linecap="round" fill="none"/>
+  <!-- 箭头尖端 -->
+  <path d="M90 55 L95 60 L90 65" stroke="white" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+
+  <!-- 中心文档/列表图标 -->
+  <g transform="translate(48, 48)">
+    <!-- 文档轮廓 -->
+    <rect x="0" y="0" width="24" height="24" rx="2" stroke="white" stroke-width="2.5" fill="none"/>
+    <!-- 内部横线 (日志条目) -->
+    <line x1="4" y1="7" x2="20" y2="7" stroke="white" stroke-width="2" stroke-linecap="round"/>
+    <line x1="4" y1="12" x2="20" y2="12" stroke="white" stroke-width="2" stroke-linecap="round"/>
+    <line x1="4" y1="17" x2="16" y2="17" stroke="white" stroke-width="2" stroke-linecap="round"/>
+  </g>
+</svg>

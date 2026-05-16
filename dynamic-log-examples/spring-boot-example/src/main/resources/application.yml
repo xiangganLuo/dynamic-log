@@ -1,0 +1,15 @@
+server:
+  port: 8080
+
+dynamic-log:
+  enabled: true
+  banner-enabled: true
+  default-adapter: logback
+  levels:
+    com.dynamiclog.example: DEBUG
+    com.dynamiclog.example.service: INFO
+
+logging:
+  level:
+    root: INFO
+    com.dynamiclog.example: DEBUG
