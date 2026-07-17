@@ -31,6 +31,7 @@ public class DefaultLoggingSystemAdapterRegistry implements LoggingSystemAdapter
         adapters.put(name, adapter);
         if (defaultAdapterName == null) {
             defaultAdapterName = name;
+            log.debug("默认适配器确定为首个注册的适配器: {}", name);
         }
         log.info("Registered logging system adapter: {}", name);
     }
@@ -58,6 +59,7 @@ public class DefaultLoggingSystemAdapterRegistry implements LoggingSystemAdapter
         if (defaultAdapterName == null) {
             throw AdapterNotFoundException.forType("default (no adapter registered)");
         }
+        log.debug("解析默认适配器: {}", defaultAdapterName);
         return getAdapter(defaultAdapterName);
     }
 

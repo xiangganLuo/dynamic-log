@@ -58,8 +58,12 @@ public class DynamicLogPluginLifecycle implements SmartLifecycle {
         }
 
         log.info("停止 Dynamic Log 插件");
+        log.debug("生命周期停止阶段一：stopAll()");
         pluginManager.stopAll();
+        log.debug("生命周期停止阶段二：destroyAll()");
+        pluginManager.destroyAll();
         running = false;
+        log.debug("Dynamic Log 插件生命周期已停止");
     }
 
     @Override

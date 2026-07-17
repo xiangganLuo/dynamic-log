@@ -35,6 +35,12 @@ public class LogbackSpringAdapter implements LoggingSystemAdapter {
 
     @Override
     public void setLogLevel(String loggerName, String level) {
+        // level 为 null 表示重置该 logger，交由 LoggingSystem 从父级继承
+        if (level == null) {
+            loggingSystem.setLogLevel(loggerName, null);
+            log.debug("level=null，执行重置: {}", loggerName);
+            return;
+        }
         try {
             LogLevel logLevel = LogLevel.valueOf(level.toUpperCase());
             loggingSystem.setLogLevel(loggerName, logLevel);

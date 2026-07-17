@@ -118,9 +118,12 @@ public class DynamicLogManager {
 
     private LoggingSystemAdapter resolveAdapter(String adapterName) {
         if (adapterName != null) {
+            log.debug("解析指定适配器: {}", adapterName);
             return adapterRegistry.getAdapter(adapterName);
         }
-        return adapterRegistry.getDefaultAdapter();
+        LoggingSystemAdapter adapter = adapterRegistry.getDefaultAdapter();
+        log.debug("解析默认适配器: {}", adapter.getName());
+        return adapter;
     }
 
     public LoggingSystemAdapterRegistry getAdapterRegistry() {

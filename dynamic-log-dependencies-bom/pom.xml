@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.dynamiclog</groupId>
+    <groupId>io.github.xiangganluo</groupId>
     <artifactId>dynamic-log-dependencies-bom</artifactId>
     <version>${revision}</version>
     <packaging>pom</packaging>
@@ -13,7 +13,7 @@
     <description>Bill of Materials for Dynamic Log framework dependency version management</description>
 
     <properties>
-        <revision>1.0.0-SNAPSHOT</revision>
+        <revision>1.0.0</revision>
         <java.version>1.8</java.version>
         <spring-boot.version>2.7.18</spring-boot.version>
         <spring-cloud.version>2021.0.9</spring-cloud.version>
@@ -30,22 +30,52 @@
         <dependencies>
             <!-- Internal modules -->
             <dependency>
-                <groupId>com.dynamiclog</groupId>
+                <groupId>io.github.xiangganluo</groupId>
                 <artifactId>dynamic-log-common</artifactId>
                 <version>${revision}</version>
             </dependency>
             <dependency>
-                <groupId>com.dynamiclog</groupId>
+                <groupId>io.github.xiangganluo</groupId>
                 <artifactId>dynamic-log-core</artifactId>
                 <version>${revision}</version>
             </dependency>
             <dependency>
-                <groupId>com.dynamiclog</groupId>
+                <groupId>io.github.xiangganluo</groupId>
                 <artifactId>dynamic-log-spring</artifactId>
                 <version>${revision}</version>
             </dependency>
             <dependency>
-                <groupId>com.dynamiclog</groupId>
+                <groupId>io.github.xiangganluo</groupId>
+                <artifactId>dynamic-log-apollo</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.github.xiangganluo</groupId>
+                <artifactId>dynamic-log-nacos</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.github.xiangganluo</groupId>
+                <artifactId>dynamic-log-log4j2</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.github.xiangganluo</groupId>
+                <artifactId>dynamic-log-plugin-ttl</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.github.xiangganluo</groupId>
+                <artifactId>dynamic-log-endpoint</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.github.xiangganluo</groupId>
+                <artifactId>dynamic-log-plugin-audit</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.github.xiangganluo</groupId>
                 <artifactId>dynamic-log-test</artifactId>
                 <version>${revision}</version>
             </dependency>
@@ -55,6 +85,15 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-dependencies</artifactId>
                 <version>${spring-boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <!-- Spring Cloud BOM：管理 spring-cloud-context 等版本（Nacos 集成用） -->
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring-cloud.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -101,4 +140,18 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
+
+    <build>
+        <plugins>
+            <!-- BOM 需保留 dependencyManagement：用 bom 模式扁平化（覆盖父的 oss 模式） -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>flatten-maven-plugin</artifactId>
+                <version>1.6.0</version>
+                <configuration>
+                    <flattenMode>bom</flattenMode>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>

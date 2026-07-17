@@ -13,16 +13,17 @@ import org.springframework.context.annotation.Import;
  *   <li>{@link DynamicLogCoreAutoConfiguration} - 核心管理器和适配器注册表</li>
  *   <li>{@link DynamicLogRefresherAutoConfiguration} - 刷新策略</li>
  *   <li>{@link DynamicLogBannerAutoConfiguration} - 启动横幅</li>
- *   <li>{@link DynamicLogListenerAutoConfiguration} - Apollo/Nacos 监听器</li>
  * </ul>
+ * <p>
+ * 配置中心接入（Apollo / Nacos）已拆分为独立模块
+ * {@code dynamic-log-apollo} / {@code dynamic-log-nacos}，按需引入。
  */
 @Configuration
 @EnableConfigurationProperties(DynamicLogProperties.class)
 @Import({
         DynamicLogCoreAutoConfiguration.class,
         DynamicLogRefresherAutoConfiguration.class,
-        DynamicLogBannerAutoConfiguration.class,
-        DynamicLogListenerAutoConfiguration.class
+        DynamicLogBannerAutoConfiguration.class
 })
 public class DynamicLogAutoConfiguration {
 }

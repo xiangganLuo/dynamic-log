@@ -32,6 +32,13 @@ public interface PluginManager {
     void stopAll();
 
     /**
+     * 按相反顺序销毁所有已注册的插件，并清空注册表。
+     * <p>
+     * 通常在应用关闭、{@link #stopAll()} 之后调用。
+     */
+    void destroyAll();
+
+    /**
      * 按ID返回插件。
      */
     DynamicLogPlugin getPlugin(String pluginId);

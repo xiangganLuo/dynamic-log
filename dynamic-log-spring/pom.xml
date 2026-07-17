@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>com.dynamiclog</groupId>
+        <groupId>io.github.xiangganluo</groupId>
         <artifactId>dynamic-log</artifactId>
         <version>${revision}</version>
     </parent>
@@ -17,7 +17,7 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.dynamiclog</groupId>
+            <groupId>io.github.xiangganluo</groupId>
             <artifactId>dynamic-log-core</artifactId>
         </dependency>
         <dependency>

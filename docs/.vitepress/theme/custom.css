@@ -1,0 +1,135 @@
+/**
+ * Dynamic Log 品牌主题
+ * 主色取自 logo：#2563eb（蓝）
+ */
+
+:root {
+  --vp-c-brand-1: #2563eb;
+  --vp-c-brand-2: #1d4ed8;
+  --vp-c-brand-3: #3b82f6;
+  --vp-c-brand-soft: rgba(37, 99, 235, 0.14);
+}
+
+.dark {
+  --vp-c-brand-1: #60a5fa;
+  --vp-c-brand-2: #3b82f6;
+  --vp-c-brand-3: #2563eb;
+  --vp-c-brand-soft: rgba(96, 165, 250, 0.16);
+}
+
+/* 首页 Hero 渐变标题与光晕 */
+:root {
+  --vp-home-hero-name-color: transparent;
+  --vp-home-hero-name-background: linear-gradient(120deg, #2563eb 30%, #06b6d4);
+
+  --vp-home-hero-image-background-image: linear-gradient(135deg, #2563eb 30%, #06b6d4 70%);
+  --vp-home-hero-image-filter: blur(48px);
+}
+
+.dark {
+  --vp-home-hero-name-background: linear-gradient(120deg, #60a5fa 30%, #22d3ee);
+}
+
+/* mermaid 图居中，避免深色背景下溢出 */
+.mermaid {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+/* ============================================================
+   首页动态效果（克制）—— 全部包裹在 no-preference 内，
+   prefers-reduced-motion: reduce 时自动降级为静态。
+   初始隐藏由 <html class="dl-anim">（head 内联脚本，reduce 下不加）
+   控制，JS 禁用时内容照常可见。
+   ============================================================ */
+@media (prefers-reduced-motion: no-preference) {
+  /* Hero 标题：品牌渐变缓慢流动 */
+  .VPHero .name .clip {
+    background-size: 200% auto;
+    animation: dl-hero-flow 9s ease-in-out infinite;
+  }
+
+  @keyframes dl-hero-flow {
+    0%,
+    100% {
+      background-position: 0% center;
+    }
+    50% {
+      background-position: 100% center;
+    }
+  }
+
+  /* Hero 背景光晕：轻微呼吸 */
+  .VPHero .image-bg {
+    animation: dl-glow 7s ease-in-out infinite alternate;
+  }
+
+  @keyframes dl-glow {
+    from {
+      opacity: 0.55;
+      transform: scale(0.94);
+    }
+    to {
+      opacity: 0.95;
+      transform: scale(1.06);
+    }
+  }
+
+  /* Hero 文案 / 图形入场（首帧淡入上移） */
+  .dl-anim .VPHero .container .main {
+    animation: dl-fade-up 0.7s cubic-bezier(0.16, 0.84, 0.44, 1) both;
+  }
+  .dl-anim .VPHero .container .image {
+    animation: dl-fade-up 0.7s 0.1s cubic-bezier(0.16, 0.84, 0.44, 1) both;
+  }
+
+  @keyframes dl-fade-up {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  /* 特性卡片：滚动进入前的初始态（仅在 dl-anim 下隐藏，避免 FOUC/无 JS 时不可见） */
+  .dl-anim .VPHome .VPFeature {
+    opacity: 0;
+    transform: translateY(22px);
+  }
+
+  .VPHome .VPFeature {
+    transition:
+      opacity 0.6s ease,
+      transform 0.6s cubic-bezier(0.16, 0.84, 0.44, 1),
+      border-color 0.25s ease,
+      box-shadow 0.25s ease;
+    transition-delay: var(--dl-delay, 0ms);
+  }
+
+  /* 进入视口后显形（由 IntersectionObserver 添加 .dl-in） */
+  .VPHome .VPFeature.dl-in {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* 卡片 hover 抬升 + 阴影（reduced-motion 下保留颜色/阴影反馈，无位移） */
+.VPHome .VPFeature:hover {
+  transition-delay: 0ms;
+  border-color: var(--vp-c-brand-1);
+  box-shadow: 0 12px 32px rgba(37, 99, 235, 0.14);
+}
+
+.dark .VPHome .VPFeature:hover {
+  box-shadow: 0 12px 32px rgba(96, 165, 250, 0.18);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .VPHome .VPFeature:hover {
+    transform: translateY(-4px);
+  }
+}

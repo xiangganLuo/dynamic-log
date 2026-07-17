@@ -88,6 +88,9 @@ public class SpringEnvironmentRefresher implements LogRefresher {
         }
 
         if (!levelMap.isEmpty()) {
+            if (log.isDebugEnabled()) {
+                log.debug("从 Environment 扫描到 {} 个 logging.level.* 条目: {}", levelMap.size(), levelMap);
+            }
             LogLevelChange change = LogLevelChange.builder()
                     .putAllLevels(levelMap)
                     .build();

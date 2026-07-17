@@ -32,7 +32,7 @@ public class DefaultPluginManager implements PluginManager {
     }
 
     @Override
-    public void register(DynamicLogPlugin plugin) {
+    public synchronized void register(DynamicLogPlugin plugin) {
         String id = plugin.getPluginId();
         if (plugins.containsKey(id)) {
             throw new IllegalArgumentException("Plugin already registered: " + id);
@@ -45,7 +45,7 @@ public class DefaultPluginManager implements PluginManager {
     }
 
     @Override
-    public void unregister(String pluginId) {
+    public synchronized void unregister(String pluginId) {
         DynamicLogPlugin plugin = plugins.remove(pluginId);
         if (plugin != null) {
             orderedPlugins.remove(plugin);
@@ -59,7 +59,7 @@ public class DefaultPluginManager implements PluginManager {
     }
 
     @Override
-    public void startAll() {
+    public synchronized void startAll() {
         for (DynamicLogPlugin plugin : orderedPlugins) {
             log.info("Starting plugin: {} v{}", plugin.getPluginId(), plugin.getVersion());
             plugin.start();
@@ -67,7 +67,7 @@ public class DefaultPluginManager implements PluginManager {
     }
 
     @Override
-    public void stopAll() {
+    public synchronized void stopAll() {
         List<DynamicLogPlugin> reversed = new ArrayList<>(orderedPlugins);
         Collections.reverse(reversed);
         for (DynamicLogPlugin plugin : reversed) {
@@ -81,13 +81,31 @@ public class DefaultPluginManager implements PluginManager {
     }
 
     @Override
+    public synchronized void destroyAll() {
+        List<DynamicLogPlugin> reversed = new ArrayList<>(orderedPlugins);
+        Collections.reverse(reversed);
+        log.debug("destroyAll: 逆序销毁 {} 个插件", reversed.size());
+        for (DynamicLogPlugin plugin : reversed) {
+            log.debug("Destroying plugin: {}", plugin.getPluginId());
+            try {
+                plugin.destroy();
+            } catch (Exception e) {
+                log.error("Error destroying plugin: {}", plugin.getPluginId(), e);
+            }
+        }
+        plugins.clear();
+        orderedPlugins.clear();
+        log.debug("destroyAll: 插件注册表已清空");
+    }
+
+    @Override
     public DynamicLogPlugin getPlugin(String pluginId) {
         return plugins.get(pluginId);
     }
 
     @Override
-    public Collection<DynamicLogPlugin> getPlugins() {
-        return Collections.unmodifiableList(orderedPlugins);
+    public synchronized Collection<DynamicLogPlugin> getPlugins() {
+        return Collections.unmodifiableList(new ArrayList<>(orderedPlugins));
     }
 
     @Override

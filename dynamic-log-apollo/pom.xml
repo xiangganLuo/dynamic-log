@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>io.github.xiangganluo</groupId>
+        <artifactId>dynamic-log</artifactId>
+        <version>${revision}</version>
+    </parent>
+
+    <artifactId>dynamic-log-apollo</artifactId>
+    <packaging>jar</packaging>
+    <name>Dynamic Log Apollo</name>
+    <description>Apollo config center integration for Dynamic Log framework</description>
+
+    <dependencies>
+        <dependency>
+            <groupId>io.github.xiangganluo</groupId>
+            <artifactId>dynamic-log-spring</artifactId>
+        </dependency>
+        <!-- Spring（provided）：dynamic-log-spring 的 Spring 依赖为 provided 不传递，此处显式引入以编译自动配置 -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-autoconfigure</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+            <optional>true</optional>
+        </dependency>
+        <!-- Apollo (optional)：使用方需自行显式引入 apollo-client -->
+        <dependency>
+            <groupId>com.ctrip.framework.apollo</groupId>
+            <artifactId>apollo-client</artifactId>
+            <optional>true</optional>
+        </dependency>
+        <!-- Test：apollo-client 为 optional/compile，测试期可用；用真实 manager + 内存假适配器，仅补 junit -->
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+</project>

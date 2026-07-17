@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>com.dynamiclog</groupId>
+        <groupId>io.github.xiangganluo</groupId>
         <artifactId>dynamic-log-examples</artifactId>
         <version>${revision}</version>
     </parent>
@@ -14,9 +14,14 @@
     <packaging>jar</packaging>
     <name>Dynamic Log Spring Boot Example</name>
 
+    <properties>
+        <!-- 示例模块不发布到中央仓库 -->
+        <maven.deploy.skip>true</maven.deploy.skip>
+    </properties>
+
     <dependencies>
         <dependency>
-            <groupId>com.dynamiclog</groupId>
+            <groupId>io.github.xiangganluo</groupId>
             <artifactId>dynamic-log-spring</artifactId>
         </dependency>
         <dependency>
